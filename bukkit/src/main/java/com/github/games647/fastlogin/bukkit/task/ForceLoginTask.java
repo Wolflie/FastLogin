@@ -37,7 +37,7 @@ public class ForceLoginTask extends ForceLoginManagement<Player, CommandSender, 
 
         PremiumStatus status = PremiumStatus.CRACKED;
         if (!isOnlineMode()) {
-            player.kickPlayer(ChatColor.RED + "This server is a premium-only server!");
+            Bukkit.getScheduler().runTask(core.getPlugin(), () -> player.kickPlayer(ChatColor.RED + "This server is a premium-only server!"));
             return;
         }
 
