@@ -9,6 +9,10 @@ import com.github.games647.fastlogin.core.message.LoginActionMessage;
 import com.github.games647.fastlogin.core.message.LoginActionMessage.Type;
 import com.google.common.io.ByteArrayDataInput;
 import com.google.common.io.ByteStreams;
+import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
+import org.bukkit.entity.Player;
+import org.bukkit.plugin.messaging.PluginMessageListener;
 
 import java.io.IOException;
 import java.net.InetSocketAddress;
@@ -18,10 +22,6 @@ import java.util.Collections;
 import java.util.Set;
 import java.util.UUID;
 import java.util.stream.Stream;
-
-import org.bukkit.Bukkit;
-import org.bukkit.entity.Player;
-import org.bukkit.plugin.messaging.PluginMessageListener;
 
 import static java.util.stream.Collectors.toSet;
 
@@ -101,7 +101,7 @@ public class BungeeListener implements PluginMessageListener {
                 }
             }, 10L);
         } else if (type == Type.CRACKED) {
-            //we don't start a force login task here so update it manually
+            player.kickPlayer(ChatColor.RED + "You have to be a premium account to join.");
             plugin.getPremiumPlayers().put(player.getUniqueId(), PremiumStatus.CRACKED);
         }
     }
