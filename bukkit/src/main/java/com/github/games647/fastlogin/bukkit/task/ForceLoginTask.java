@@ -7,13 +7,13 @@ import com.github.games647.fastlogin.core.message.SuccessMessage;
 import com.github.games647.fastlogin.core.shared.FastLoginCore;
 import com.github.games647.fastlogin.core.shared.ForceLoginManagement;
 import com.github.games647.fastlogin.core.shared.LoginSession;
-
-import java.util.concurrent.ExecutionException;
-
 import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.metadata.FixedMetadataValue;
+
+import java.util.concurrent.ExecutionException;
 
 public class ForceLoginTask extends ForceLoginManagement<Player, CommandSender, BukkitLoginSession, FastLoginBukkit> {
 
@@ -36,8 +36,9 @@ public class ForceLoginTask extends ForceLoginManagement<Player, CommandSender, 
         super.run();
 
         PremiumStatus status = PremiumStatus.CRACKED;
-        if (isOnlineMode()) {
-            status = PremiumStatus.PREMIUM;
+        if (!isOnlineMode()) {
+            player.kickPlayer(ChatColor.RED + "This server is a premium-only server!");
+            return;
         }
 
         plugin.getPremiumPlayers().put(player.getUniqueId(), status);
